@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import Dashboard from "./Dashboard";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -22,6 +24,7 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
     const [error, setError] = useState("");
+    const router = useRouter(); // Initialize the router
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -33,10 +36,13 @@ export default function Login() {
                 // Login user
                 await signInWithEmailAndPassword(auth, email, password);
                 alert("Logged in successfully!");
+                router.push("/dashboard");
+
             } else {
                 // Signup user
                 await createUserWithEmailAndPassword(auth, email, password);
                 alert("Account created successfully!");
+                setIsLogin(true);  
             }
         } catch (err) {
             setError(err.message);
