@@ -1,8 +1,9 @@
+"use client"; // Add this directive to mark the component as a Client Component
+
 import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/navigation";
-import Dashboard from "./Dashboard";
+import { useRouter } from "next/navigation"; // Updated import
 
 // Firebase configuration
 const firebaseConfig = {
@@ -36,13 +37,12 @@ export default function Login() {
                 // Login user
                 await signInWithEmailAndPassword(auth, email, password);
                 alert("Logged in successfully!");
-                router.push("/dashboard");
-
+                router.push("/dashboard"); // Use router.push for navigation
             } else {
                 // Signup user
                 await createUserWithEmailAndPassword(auth, email, password);
                 alert("Account created successfully!");
-                setIsLogin(true);  
+                setIsLogin(true);
             }
         } catch (err) {
             setError(err.message);
@@ -50,8 +50,8 @@ export default function Login() {
     };
 
     return (
-        <main className="flex items-center justify-center h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-96">
+        <main className="flex items-center justify-center h-screen bg-green-100">
+            <div className="bg-[oklch(0.627_0.194_149.214)] p-8 rounded-lg shadow-md w-96">
                 <h2 className="text-2xl font-bold mb-6 text-center">
                     {isLogin ? "Login" : "Sign Up"}
                 </h2>
@@ -62,7 +62,7 @@ export default function Login() {
                 {/* Login/Signup Form */}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium mb-2" htmlFor="email">
+                        <label className="block text-sm font-medium mb-2 text-white" htmlFor="email">
                             Email
                         </label>
                         <input
@@ -77,7 +77,7 @@ export default function Login() {
                     </div>
 
                     <div className="mb-6">
-                        <label className="block text-sm font-medium mb-2" htmlFor="password">
+                        <label className="block text-sm font-medium mb-2 text-white" htmlFor="password">
                             Password
                         </label>
                         <input
@@ -104,7 +104,7 @@ export default function Login() {
                     {isLogin ? "Don't have an account? " : "Already have an account? "}
                     <button
                         onClick={() => setIsLogin(!isLogin)}
-                        className="text-blue-500 hover:underline"
+                        className="text-black hover:underline"
                     >
                         {isLogin ? "Sign Up" : "Login"}
                     </button>
